@@ -9,10 +9,6 @@ Neural networks consist of simple input/output units called neurons (inspired by
 
 Regression helps in establishing a relationship between a dependent variable and one or more independent variables. Regression models work well only when the regression equation is a good fit for the data. Most regression models will not fit the data perfectly. Although neural networks are complex and computationally expensive, they are flexible and can dynamically pick the best type of regression, and if that is not enough, hidden layers can be added to improve prediction. 
 
-## Neural Network Model
-
-![image](Diagram.png)
-
 
 ## DESIGN STEPS
 
