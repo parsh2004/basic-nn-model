@@ -40,43 +40,63 @@ Evaluate the model with the testing data.
 ## PROGRAM
 ``` python3
 import pandas as pd
+from google.colab import auth
+import gspread
+from google.auth import default
+
+auth.authenticate_user()
+creds, _ = default()
+gc = gspread.authorize(creds)
 
 from sklearn.model_selection import train_test_split
-
 from sklearn.preprocessing import MinMaxScaler
-
-df=pd.read_csv("data.csv")
-
-df.head()
-
-x=df[["Input"]].values
-
-y=df[["Output"]].values
-
-x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
-
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
 import tensorflow as tf
+tf.__version__
 
-model=tf.keras.Sequential([tf.keras.layers.Dense(8,activation='relu'),
-                           tf.keras.layers.Dense(16,activation='relu'),
-                           tf.keras.layers.Dense(1)])
-model.compile(loss="mae",optimizer="adam",metrics=["mse"])
+worksheet = gc.open('firstdataset').sheet1
+rows = worksheet.get_all_values()
 
-history=model.fit(x_train,y_train,epochs=1000)
 
-import numpy as np
+df = pd.DataFrame(rows[1:], columns=rows[0])
+df.head(n=10)
+df.dtypes
+df = df.astype({'X':'float'})
+df = df.astype({'Y':'float'})
+df.dtypes
+X = df[['X']].values
+X
+Y = df[['Y']].values
+Y
+X_train,X_test,Y_train,Y_test = train_test_split(X,Y,test_size=0.33,random_state=50)
+X_test.shape
+X_train
+scaler = MinMaxScaler()
+scaler.fit(X_train)
+X_train_scaled = scaler.transform(X_train)
+X_train_scaled
 
-x_test
 
-preds=model.predict(x_test)
-np.round(preds)
+ai_brain = Sequential([
+    Dense(2,activation = 'relu'),
+    Dense(1)
+])
+ai_brain.compile(optimizer = 'rmsprop',loss = 'mse')
+ai_brain.fit(x = X_train_scaled,y = Y_train,epochs = 20000)
+loss_df = pd.DataFrame(ai_brain.history.history)
+loss_df.plot()
+X_test
+X_test_scaled = scaler.transform(X_test)
+X_test_scaled
+ai_brain.evaluate(X_test_scaled,Y_test)
 
-tf.round(model.predict([[20]]))
 
-pd.DataFrame(history.history).plot()
-
-r=tf.keras.metrics.RootMeanSquaredError()
-r(y_test,preds)
+input = [[110]]
+input_scaled = scaler.transform(input)
+input_scaled.shape
+input_scaled
+ai_brain.predict(input_scaled)
 
 ```
 ## Dataset Information
