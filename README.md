@@ -11,7 +11,7 @@ Regression helps in establishing a relationship between a dependent variable and
 
 ## Neural Network Model
 
-![image](https://user-images.githubusercontent.com/74660507/187084426-6fbe69cc-49a9-4792-86a3-da1cec3cd984.png)
+![image](Diagram.png)
 
 
 ## DESIGN STEPS
@@ -88,21 +88,21 @@ r(y_test,preds)
 ```
 ## Dataset Information
 
-![image](https://user-images.githubusercontent.com/75235128/187080149-c0d3f420-7ef5-4627-9815-bb2039af2ee2.png)
+![image](2.png)
 
 ## OUTPUT
 
 ### Training Loss Vs Iteration Plot
 
-![image](https://user-images.githubusercontent.com/75235128/187079548-d80dd933-6cb2-4cb7-9029-af1d632de9bb.png)
+![image](output.png)
 
 ### Test Data Root Mean Squared Error
 
-![image](https://user-images.githubusercontent.com/75235128/187080084-3a894e9c-6b3f-4546-af36-5da4dda24daa.png)
+![image](td.png)
 
 ### New Sample Data Prediction
 
-![image](https://user-images.githubusercontent.com/75235128/187080117-601abfe6-707a-4850-a8f1-96bb6a670a71.png)
+![image](net.png)
 
 ## RESULT
 Thus a neural network regression model for the given dataset is written and executed successfully
